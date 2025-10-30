@@ -135,3 +135,4 @@ D:\Pathlock2.0\ProjectManagerApi\obj\Debug\net8.0\refint\ProjectManagerApi.dll
 D:\Pathlock2.0\ProjectManagerApi\obj\Debug\net8.0\ProjectManagerApi.pdb
 D:\Pathlock2.0\ProjectManagerApi\obj\Debug\net8.0\ProjectManagerApi.genruntimeconfig.cache
 D:\Pathlock2.0\ProjectManagerApi\obj\Debug\net8.0\ref\ProjectManagerApi.dll
+D:\Pathlock2.0\ProjectManagerApi\obj\Debug\net8.0\ProjectManagerApi.sourcelink.json
