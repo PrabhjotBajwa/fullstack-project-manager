@@ -1,0 +1,380 @@
+{
+	"info": {
+		"_postman_id": "ba318f6e-5aa4-4283-8834-83b462a054bc",
+		"name": "Pathlock Assignments (2,3)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36642326"
+	},
+	"item": [
+		{
+			"name": "Assignment 2 - Mini Project Manager",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"hiprabhbajwa@gmail.com\",\n    \"password\": \"Superman@24\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/auth/register",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Yeh script login successful hone par JWT token ko automatically save kar leti hai",
+											"if (pm.response.code === 200) {",
+											"    var data = pm.response.json();",
+											"    pm.collectionVariables.set(\"authToken\", data.token);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"daadoji@gmail.com\",\n    \"password\": \"Degtegfateh_13\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/auth/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Projects",
+					"item": [
+						{
+							"name": "Get All Projects",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/projects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Yeh script naye project ki ID ko save kar leti hai",
+											"if (pm.response.code === 201) {",
+											"    var data = pm.response.json();",
+											"    pm.collectionVariables.set(\"projectId\", data.id);",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"My first project\",\n    \"description\": \"project includes knowledge of LLMs\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/projects",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Project by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/projects/{{projectId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Project",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/projects/{{projectId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "In requests ke liye login zaroori hai. Pehle Login request run karein."
+				},
+				{
+					"name": "Tasks",
+					"item": [
+						{
+							"name": "Create New Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Naye task ki ID save karta hai",
+											"if (pm.response.code === 201) {",
+											"    var data = pm.response.json();",
+											"    pm.collectionVariables.set(\"taskId\", data.id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"My first task for this project\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/projects/{{projectId}}/tasks",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"projects",
+										"{{projectId}}",
+										"tasks"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Task",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"My UPDATED task title\",\n    \"isCompleted\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/tasks/{{taskId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Task",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/tasks/{{taskId}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"tasks",
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "In requests ke liye login aur ek project ID zaroori hai."
+				}
+			]
+		},
+		{
+			"name": "Assignment 3 - Smart Scheduler",
+			"item": [
+				{
+					"name": "Generate Schedule",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"tasks\": [\n    { \"title\": \"Design API\", \"estimatedHours\": 5, \"dueDate\": \"2025-10-25\", \"dependencies\": [] },\n    { \"title\": \"Implement Backend\", \"estimatedHours\": 12, \"dueDate\": \"2025-10-28\", \"dependencies\": [\"Design API\"] },\n    { \"title\": \"Build Frontend\", \"estimatedHours\": 10, \"dueDate\": \"2025-10-30\", \"dependencies\": [\"Design API\"] },\n    { \"title\": \"End-to-End Test\", \"estimatedHours\": 8, \"dueDate\": \"2025-10-31\", \"dependencies\": [\"Implement Backend\", \"Build Frontend\"] }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/projects/{{projectId}}/schedule",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"projects",
+								"{{projectId}}",
+								"schedule"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Iske liye login aur ek valid project ID zaroori hai."
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{authToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://my-project-api.onrender.com"
+		},
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "projectId",
+			"value": ""
+		},
+		{
+			"key": "taskId",
+			"value": ""
+		}
+	]
+}
