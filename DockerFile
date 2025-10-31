@@ -1,0 +1,29 @@
+# Kadam 1: .NET 8 SDK (Software Development Kit) ka istemaal karein
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+# Kadam 2: Server par kaam karne ke liye ek 'src' folder banayein
+WORKDIR /src
+
+# Kadam 3: Database migration tool (dotnet-ef) install karein
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Kadam 4: Pehle sirf project file copy karein
+# Yeh build time ko fast karta hai
+COPY ProjectManagerApi/ProjectManagerApi.csproj .
+
+# Kadam 5: Packages restore karein
+RUN dotnet restore
+
+# Kadam 6: Baaki saara backend code copy karein
+COPY ProjectManagerApi/ .
+
+# Kadam 7: Project ko publish (build) karein
+RUN dotnet publish -c Release -o /app
+
+# Kadam 8: Final app folder mein jaayein
+WORKDIR /app
+
+# Kadam 9: Server start karne ka command
+# Yeh pehle database ko migrate/update karega, fir app ko run karega
+ENTRYPOINT ["/bin/bash", "-c", "dotnet ef database update && dotnet ProjectManagerApi.dll"]

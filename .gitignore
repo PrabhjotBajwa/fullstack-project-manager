@@ -1,0 +1,6 @@
+# Database file
+app.db
+
+# Build folders
+bin/
+obj/
