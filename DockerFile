@@ -26,4 +26,4 @@ WORKDIR /app
 
 # Kadam 9: Server start karne ka command
 # Yeh pehle database ko migrate/update karega, fir app ko run karega
-ENTRYPOINT ["/bin/bash", "-c", "dotnet ef database update && dotnet ProjectManagerApi.dll"]
+ENTRYPOINT ["/bin/bash", "-c", "dotnet ef database update --project /src/ProjectManagerApi.csproj && dotnet ProjectManagerApi.dll"]
