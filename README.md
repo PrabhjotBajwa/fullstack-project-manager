@@ -1,7 +1,5 @@
 ## README for Assignment 2 & 3 (Project Manager)
 
-(Copy and paste this into the `README.md` file for your Assignment 2/3 project)
-
 ```markdown
 # Full-Stack Project Manager (Assignment 2 & 3)
 
