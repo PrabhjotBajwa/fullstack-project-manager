@@ -14,6 +14,7 @@ This is an advanced full-stack project management application. It features secur
 
 ## ✨ Features
 
+
 ### Assignment 2: Project Manager
 * **JWT Authentication:** Secure user registration and login using JSON Web Tokens.
 * **Data Isolation:** Users can only view and manage their *own* projects and tasks.
@@ -70,6 +71,4 @@ npm start
 # Run the application
 dotnet run
 
-
-<img width="1916" height="878" alt="Screenshot 2025-10-31 124549" src="https://github.com/user-attachments/assets/23bbca01-8faa-4dbb-a565-5ba88ef1f54a" />
-
+<img width="1916" height="878" alt="Screenshot 2025-10-31 124549" src="https://github.com/user-attachments/assets/df08f027-1db4-45b3-b78b-4733c8a54bf8" />
