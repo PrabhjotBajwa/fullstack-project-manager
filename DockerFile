@@ -1,19 +1,37 @@
-
-FROM mcr.microsoft.com/dotnet/sdk:8.0
-
+# Kadam 1: Build stage (.NET 8 SDK)
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-RUN dotnet tool install --global dotnet-ef
+# EF tool install karein
+RUN dotnet tool install --global dotnet-ef --version 8.0.0
 ENV PATH="$PATH:/root/.dotnet/tools"
 
+# Sirf .csproj file copy karein (caching ke liye)
 COPY ProjectManagerApi/ProjectManagerApi.csproj .
-
 RUN dotnet restore
 
+# Baaki saara backend code copy karein
 COPY ProjectManagerApi/ .
 
-RUN dotnet publish -c Release -o /app
+# App ko publish karein
+RUN dotnet publish -c Release -o /app/publish
 
+# --- Database Yahaan Banega ---
+# Migrations run karke /src/app.db file banayein
+RUN dotnet ef database update --project /src/ProjectManagerApi.csproj
+
+# Kadam 2: Final stage (ASP.NET Runtime)
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 
-ENTRYPOINT ["/bin/bash", "-c", "cd /src && dotnet ef database update && cd /app && dotnet ProjectManagerApi.dll"]
+# Build stage se publish kiya hua app copy karein
+COPY --from=build /app/publish .
+
+# Build stage se banayi hui database file copy karein
+COPY --from=build /src/app.db .
+
+# Render ko port batayein
+ENV ASPNETCORE_URLS=http://+:10000
+
+# Final command (sirf app run karein)
+ENTRYPOINT ["dotnet", "ProjectManagerApi.dll"]
